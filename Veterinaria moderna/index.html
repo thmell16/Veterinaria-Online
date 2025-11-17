@@ -309,6 +309,130 @@
                 font-size: 1rem;
             }
         }
+
+        /* Formulario */
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto 80px;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        .rating {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .rating input {
+            display: none;
+        }
+        
+        .rating label {
+            font-size: 2rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .rating input:checked ~ label,
+        .rating label:hover,
+        .rating label:hover ~ label {
+            color: #ffc107;
+        }
+        
+        /* Comentarios */
+        .comments-grid {
+            display: grid;
+            gap: 30px;
+        }
+        
+        .comment-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .comment-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .comment-author {
+            font-weight: 600;
+            color: #2e7d32;
+        }
+        
+        .comment-date {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .comment-rating {
+            color: #ffc107;
+            margin-bottom: 10px;
+        }
+
+        /* Sobre Nosotros */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            color: #2e7d32;
+            margin-bottom: 20px;
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+        }
+        
+        .about-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
     </style>
 </head>
 <body>
@@ -323,11 +447,11 @@
                 <nav>
                     <ul>
                         <li><a href="index.html">Inicio</a></li>
-                        <li><a href="productos.html">Productos</a></li>
-                        <li><a href="consultas.html">Agendar Consulta</a></li>
-                        <li><a href="mascotas.html">Cuidados de Mascotas</a></li>
-                        <li><a href="nosotros.html">Nosotros</a></li>
-                        <li><a href="comentarios.html">Comentarios</a></li>
+                        <li><a href="tienda.html">Tienda</a></li>
+                        <li><a href="consultas.html">Consultar</a></li>
+                        <li><a href="enciclopediaAn.html">Enciclopedia animal</a></li>
+                        <li><a href="cuenta.html">Cuenta</a></li>
+                        
                     </ul>
                 </nav>
             </div>
@@ -340,6 +464,29 @@
             <h2>Cuidamos de tu mascota como si fuera nuestra</h2>
             <p>Servicios veterinarios de calidad con el mejor equipo profesional para el bienestar de tus animales de compañía.</p>
             <a href="consultas.html" class="btn">Agendar una cita</a>
+        </div>
+    </section>
+
+<!-- Sobre Nosotros -->
+    <section id="sobre-nosotros">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sobre Nosotros</h2>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>¿Que hacemos?</h3>
+                    <p>Texto aqui...</p>
+                    
+                    <h3>Nuestra Misión</h3>
+                    <p>Nuestra misión es mejorar la calidad de vida de las mascotas a través de medicina preventiva, diagnóstico preciso y tratamientos efectivos. Creemos que cada animal merece atención compasiva y de calidad, y nos esforzamos por ser el referente en cuidado veterinario en nuestra comunidad.</p>
+                </div>
+                
+                <div class="about-image">
+                    <div style="background-color: #e8f5e9; height: 400px; display: flex; align-items: center; justify-content: center; font-size: 5rem;">🐾</div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -405,6 +552,125 @@
         </div>
     </section>
 
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Tu Opinión Nos Importa</h2>
+            <p>Comparte tu experiencia y ayúdanos a mejorar nuestros servicios.</p>
+        </div>
+    </section>
+
+    <!-- Formulario de Comentarios -->
+    <section id="formulario-comentarios">
+        <div class="container">
+            <div class="section-title">
+                <h2>Deja tu Comentario</h2>
+            </div>
+            
+            <div class="form-container">
+                <form id="comentario-form">
+                    <div class="form-group">
+                        <label for="nombre">Nombre *</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="servicio">Servicio Utilizado</label>
+                        <select id="servicio" name="servicio">
+                            <option value="">Selecciona un servicio</option>
+                            <option value="consulta-general">Consulta General</option>
+                            <option value="vacunacion">Vacunación</option>
+                            <option value="analisis-clinicos">Análisis Clínicos</option>
+                            <option value="odontologia">Odontología</option>
+                            <option value="cirugia">Cirugía</option>
+                            <option value="emergencia">Emergencia</option>
+                            <option value="productos">Compra de Productos</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Calificación</label>
+                        <div class="rating">
+                            <input type="radio" id="star1" name="rating" value="1">
+                            <label for="star1">★</label>
+                            <input type="radio" id="star2" name="rating" value="2">
+                            <label for="star2">★</label>
+                            <input type="radio" id="star3" name="rating" value="3">
+                            <label for="star3">★</label>
+                            <input type="radio" id="star4" name="rating" value="4">
+                            <label for="star4">★</label>
+                            <input type="radio" id="star5" name="rating" value="5">
+                            <label for="star5">★</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="comentario">Tu Comentario *</label>
+                        <textarea id="comentario" name="comentario" placeholder="Comparte tu experiencia con nosotros..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sugerencias">Sugerencias de Mejora</label>
+                        <textarea id="sugerencias" name="sugerencias" placeholder="¿Qué podemos hacer para mejorar?"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn" style="width: 100%;">Enviar Comentario</button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="section-title">
+                <h2>Comentarios de Nuestros Clientes</h2>
+            </div>
+            
+            <div class="comments-grid">
+                <div class="comment-card">
+                    <div class="comment-header">
+                        <div class="comment-author">María González</div>
+                        <div class="comment-date">15 Oct, 2023</div>
+                    </div>
+                    <div class="comment-rating">★★★★★</div>
+                    <p>Excelente servicio! Llevé a mi perro Max para una consulta general y quedé muy satisfecha. El Dr. Carlos fue muy amable y explicó todo detalladamente. Definitivamente volveré.</p>
+                </div>
+                
+                <div class="comment-card">
+                    <div class="comment-header">
+                        <div class="comment-author">Roberto Sánchez</div>
+                        <div class="comment-date">10 Oct, 2023</div>
+                    </div>
+                    <div class="comment-rating">★★★★☆</div>
+                    <p>Muy buena atención para mi gato Simba. La Dra. Ana es una excelente profesional. Solo sugiero ampliar un poco el horario de atención los sábados.</p>
+                </div>
+                
+                <div class="comment-card">
+                    <div class="comment-header">
+                        <div class="comment-author">Laura Mendoza</div>
+                        <div class="comment-date">5 Oct, 2023</div>
+                    </div>
+                    <div class="comment-rating">★★★★★</div>
+                    <p>Llevé a mi hurón por una emergencia y recibió atención inmediata. El personal es muy capacitado y cariñoso con los animales. Los precios son razonables y transparentes.</p>
+                </div>
+                
+                <div class="comment-card">
+                    <div class="comment-header">
+                        <div class="comment-author">Carlos Ruiz</div>
+                        <div class="comment-date">28 Sep, 2023</div>
+                    </div>
+                    <div class="comment-rating">★★★★★</div>
+                    <p>Compré varios productos para mi hamster y la calidad es excelente. La asesoría que me dieron sobre cuidados específicos fue muy útil. Recomendado!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -444,5 +710,36 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Manejo del formulario de comentarios
+        document.getElementById('comentario-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validación básica
+            const nombre = document.getElementById('nombre').value;
+            const email = document.getElementById('email').value;
+            const comentario = document.getElementById('comentario').value;
+            const rating = document.querySelector('input[name="rating"]:checked');
+            
+            if (!nombre || !email || !comentario) {
+                alert('Por favor, completa todos los campos obligatorios (*)');
+                return;
+            }
+            
+            if (!rating) {
+                alert('Por favor, selecciona una calificación');
+                return;
+            }
+            
+            // Si todo está bien, mostrar mensaje de éxito
+            alert('¡Gracias por tu comentario! Tu feedback nos ayuda a mejorar.');
+            this.reset();
+            
+            // En una implementación real, aquí enviarías los datos al servidor
+            // y posiblemente actualizarías la sección de comentarios
+        });
+    </script>
+
 </body>
 </html>
