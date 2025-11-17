@@ -496,62 +496,64 @@ const supabaseUrl = "https://diypegkoxhyfknlrvouc.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRpeXBlZ2tveGh5ZmtubHJ2b3VjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI3OTUzOTcsImV4cCI6MjA3ODM3MTM5N30.oC8kLJH2Q62mo9bZ9joHO5h35M1N9QAfIW6_EiUKxsA";
 const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
+// Fecha mínima para el input
+const today = new Date().toISOString().split("T")[0];
+document.getElementById("fecha").setAttribute("min", today);
+
 // Evento del formulario
 document.getElementById("consulta-form").addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Capturar datos
-    const nombre_dueno = document.getElementById("nombre").value;
-    const telefono_dueno = document.getElementById("telefono").value;
-    const correo_dueno = document.getElementById("email").value;
+    // Tomar valores del formulario
+    const nombre_dueno = document.getElementById("nombre").value.trim();
+    const telefono_dueno = document.getElementById("telefono").value.trim();
+    const correo_dueno = document.getElementById("email").value.trim();
 
-    const nombre_mascota = document.getElementById("mascota").value;
+    const nombre_mascota = document.getElementById("mascota").value.trim();
     const tipo_animal = document.getElementById("tipo-mascota").value;
-    const raza = document.getElementById("raza").value;
-    const edad = document.getElementById("edad").value;
+    const raza = document.getElementById("raza").value.trim();
+    const edad = parseInt(document.getElementById("edad").value);
 
     const servicio = document.getElementById("servicio").value;
     const fecha = document.getElementById("fecha").value;
+    const descripcion = document.getElementById("sintomas").value.trim();
 
-    const descripcion = document.getElementById("sintomas").value;
+    // Validar campos obligatorios
+    if (!nombre_dueno || !telefono_dueno || !correo_dueno || !nombre_mascota ||
+        !tipo_animal || !servicio || !fecha || (document.getElementById("edad").value && isNaN(edad))) {
+        alert("❌ Por favor completa todos los campos obligatorios correctamente.");
+        return;
+    }
 
-    // Insertar en Supabase (YA INCLUYE EDAD)
-    const { data, error } = await supabase
-        .from("citas")
-        .insert([
-            {
+    try {
+        // Insertar en Supabase
+        const { data, error } = await supabase
+            .from("citas")
+            .insert([{
                 nombre_dueno,
                 telefono_dueno,
                 correo_dueno,
-
                 nombre_mascota,
                 tipo_animal,
                 raza,
-                edad,
-
+                edad: isNaN(edad) ? null : edad,
                 servicio,
                 fecha,
                 horario: null,
-
                 descripcion
-            }
-        ]);
+            }]);
 
-    if (error) {
-        console.error(error);
-        alert("❌ Error al guardar la cita");
-    } else {
-        alert("✔️ Cita registrada con éxito");
+        if (error) throw error;
+
+        alert(`✔️ Cita registrada con éxito el ${data[0].created_at}`);
         document.getElementById("consulta-form").reset();
+
+    } catch (err) {
+        console.error(err);
+        alert("❌ Error al guardar la cita: " + err.message);
     }
 });
-
-// Fecha mínima
-const today = new Date().toISOString().split("T")[0];
-document.getElementById("fecha").setAttribute("min", today);
 </script>
-
-
 
 
 </body>
