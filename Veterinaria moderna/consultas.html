@@ -493,14 +493,14 @@
 <script>
 // Inicializar Supabase
 const supabaseUrl = "https://diypegkoxhyfknlrvouc.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRpeXBlZ2tveGh5ZmtubHJ2b3VjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI3OTUzOTcsImV4cCI6MjA3ODM3MTM5N30.oC8kLJH2Q62mo9bZ9joHO5h35M1N9QAfIW6_EiUKxsA";
 const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-// FORMULARIO CORRECTO
+// Evento del formulario
 document.getElementById("consulta-form").addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Obtener valores reales del formulario
+    // Capturar datos
     const nombre_dueno = document.getElementById("nombre").value;
     const telefono_dueno = document.getElementById("telefono").value;
     const correo_dueno = document.getElementById("email").value;
@@ -508,17 +508,14 @@ document.getElementById("consulta-form").addEventListener("submit", async (e) =>
     const nombre_mascota = document.getElementById("mascota").value;
     const tipo_animal = document.getElementById("tipo-mascota").value;
     const raza = document.getElementById("raza").value;
+    const edad = document.getElementById("edad").value;
 
     const servicio = document.getElementById("servicio").value;
     const fecha = document.getElementById("fecha").value;
 
-    // Si no tienes horario, envía vacío
-    const horario = document.getElementById("horario")?.value || "";
-
-    // descripcion = síntomas
     const descripcion = document.getElementById("sintomas").value;
 
-    // Enviar a Supabase
+    // Insertar en Supabase (YA INCLUYE EDAD)
     const { data, error } = await supabase
         .from("citas")
         .insert([
@@ -530,10 +527,11 @@ document.getElementById("consulta-form").addEventListener("submit", async (e) =>
                 nombre_mascota,
                 tipo_animal,
                 raza,
+                edad,
 
                 servicio,
                 fecha,
-                horario,
+                horario: null,
 
                 descripcion
             }
@@ -548,10 +546,13 @@ document.getElementById("consulta-form").addEventListener("submit", async (e) =>
     }
 });
 
-// FECHA mínima
+// Fecha mínima
 const today = new Date().toISOString().split("T")[0];
 document.getElementById("fecha").setAttribute("min", today);
 </script>
+
+
+
 
 </body>
 
