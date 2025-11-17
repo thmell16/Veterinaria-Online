@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - Veterinaria Moderna</title>
+    <style>
+        /* Estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header */
+        header {
+            background-color: #2e7d32;
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            margin-left: 10px;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(46, 125, 50, 0.8), rgba(46, 125, 50, 0.9)), url('https://source.unsplash.com/random/1200x600/?pet-products') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: white;
+            color: #2e7d32;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Secciones */
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: #2e7d32;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: #2e7d32;
+        }
+        
+        /* Productos */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .product-image {
+            height: 200px;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-info h3 {
+            margin-bottom: 10px;
+            color: #2e7d32;
+        }
+        
+        .product-info p {
+            margin-bottom: 15px;
+            color: #666;
+        }
+        
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+        
+        /* Categorías */
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .category-btn {
+            background-color: white;
+            border: 2px solid #2e7d32;
+            color: #2e7d32;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .category-btn.active, .category-btn:hover {
+            background-color: #2e7d32;
+            color: white;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #2e7d32;
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #e0e0e0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">🐾</span>
+                    <h1>Veterinaria Moderna</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="productos.html">Productos</a></li>
+                        <li><a href="consultas.html">Agendar Consulta</a></li>
+                        <li><a href="mascotas.html">Cuidados de Mascotas</a></li>
+                        <li><a href="nosotros.html">Nosotros</a></li>
+                        <li><a href="comentarios.html">Comentarios</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Productos para el Bienestar de tu Mascota</h2>
+            <p>Encuentra todo lo que necesitas para el cuidado y diversión de tu compañero peludo.</p>
+        </div>
+    </section>
+
+    <!-- Productos -->
+    <section id="productos">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nuestros Productos</h2>
+            </div>
+            
+            <div class="categories">
+                <button class="category-btn active" data-category="all">Todos</button>
+                <button class="category-btn" data-category="alimentos">Alimentos</button>
+                <button class="category-btn" data-category="juguetes">Juguetes</button>
+                <button class="category-btn" data-category="higiene">Higiene</button>
+                <button class="category-btn" data-category="accesorios">Accesorios</button>
+            </div>
+            
+            <div class="products-grid">
+                <div class="product-card" data-category="alimentos">
+                    <div class="product-image">🍖</div>
+                    <div class="product-info">
+                        <h3>Alimento Premium para Perros</h3>
+                        <p>Alimento balanceado con todos los nutrientes necesarios para tu perro.</p>
+                        <div class="product-price">$25.99</div>
+                        <button class="btn">Agregar al Carrito</button>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="alimentos">
+                    <div class="product-image">🐟</div>
+                    <div class="product-info">
+                        <h3>Alimento para Gatos</h3>
+                        <p>Comida húmeda con sabor a pescado, rica en proteínas y vitaminas.</p>
+                        <div class="product-price">$18.50</div>
+                        <button class="btn">Agregar al Carrito</button>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="juguetes">
+                    <div class="product-image">🎾</div>
+                    <div class="product-info">
+                        <h3>Pelota Interactiva</h3>
+                        <p>Pelota resistente con sonido para mantener entretenida a tu mascota.</p>
+                        <div class="product-price">$12.99</div>
+                        <button class="btn">Agregar al Carrito</button>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="juguetes">
+                    <div class="product-image">🐭</div>
+                    <div class="product-info">
+                        <h3>Ratón de Juguete</h3>
+                        <p>Juguete ideal para gatos, con sonido y movimiento realista.</p>
+                        <div class="product-price">$8.99</div>
+                        <button class="btn">Agregar al Carrito</button>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="higiene">
+                    <div class="product-image">🛁</div>
+                    <div class="product-info">
+                        <h3>Shampoo Antipulgas</h3>
+                        <p>Shampoo especial para eliminar pulgas y garrapatas, con aroma fresco.</p>
+                        <div class="product-price">$15.75</div>
+                        <button class="btn">Agregar al Carrito</button>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="higiene">
+                    <div class="product-image">🧴</div>
+                    <div class="product-info">
+                        <h3>Acondicionador para Pelaje</h3>
+                        <p>Deja el pelaje de tu mascota suave, brillante y sin enredos.</p>
+                        <div class="product-price">$13.25</div>
+                        <button class="btn">Agregar al Carrito</button>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="accesorios">
+                    <div class="product-image">🐕</div>
+                    <div class="product-info">
+                        <h3>Correa Retráctil</h3>
+                        <p>Correa de 5 metros que se extiende según las necesidades de paseo.</p>
+                        <div class="product-price">$22.50</div>
+                        <button class="btn">Agregar al Carrito</button>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="accesorios">
+                    <div class="product-image">🏠</div>
+                    <div class="product-info">
+                        <h3>Cama Ortopédica</h3>
+                        <p>Cama ergonómica para mascotas con problemas articulares o mayores.</p>
+                        <div class="product-price">$45.99</div>
+                        <button class="btn">Agregar al Carrito</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Veterinaria Moderna</h3>
+                    <p>Cuidamos de tus mascotas con amor y profesionalidad.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="productos.html">Productos</a></li>
+                        <li><a href="consultas.html">Agendar Consulta</a></li>
+                        <li><a href="mascotas.html">Cuidados de Mascotas</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li>📍 Dirección: Av. Principal 123</li>
+                        <li>📞 Teléfono: (123) 456-7890</li>
+                        <li>✉️ Email: info@veterinariamoderna.com</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Horario</h3>
+                    <ul>
+                        <li>Lunes a Viernes: 9:00 - 18:00</li>
+                        <li>Sábados: 9:00 - 14:00</li>
+                        <li>Domingos: Cerrado</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Veterinaria Moderna. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+   <!-- Supabase dinámico -->
+<script type="module">
+    // ✅ Importamos el cliente de Supabase (CDN)
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+    // 🔑 Reemplaza con tus credenciales reales de Supabase
+    const SUPABASE_URL = 'https://diypegkoxhyfknlrvouc.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRpeXBlZ2tveGh5ZmtubHJ2b3VjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI3OTUzOTcsImV4cCI6MjA3ODM3MTM5N30.oC8kLJH2Q62mo9bZ9joHO5h35M1N9QAfIW6_EiUKxsA';
+    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // 🧩 Elementos del DOM
+    const productsGrid = document.querySelector('.products-grid');
+    const categoryButtons = document.querySelectorAll('.category-btn');
+
+    // 🚀 Función para cargar productos desde Supabase
+    async function cargarProductos() {
+        const { data, error } = await supabase
+            .from('productoss')
+            .select('*')
+            .order('id', { ascending: true });
+
+        if (error) {
+            console.error('Error al cargar productos:', error);
+            productsGrid.innerHTML = '<p style="color:red;">Error al cargar productos.</p>';
+            return;
+        }
+
+        mostrarProductos(data);
+    }
+
+    // 🧱 Mostrar los productos en pantalla
+    function mostrarProductos(productos) {
+        productsGrid.innerHTML = ''; // Limpiar
+        productos.forEach(prod => {
+            const card = document.createElement('div');
+            card.classList.add('product-card');
+            card.setAttribute('data-category', prod.categoria);
+            card.innerHTML = `
+                <div class="product-image">${prod.emoji || '🐾'}</div>
+                <div class="product-info">
+                    <h3>${prod.nombre}</h3>
+                    <p>${prod.descripcion || ''}</p>
+                    <div class="product-price">$${prod.precio.toFixed(2)}</div>
+                    <button class="btn">Agregar al Carrito</button>
+                </div>
+            `;
+            productsGrid.appendChild(card);
+        });
+    }
+
+    // 🧭 Filtrado por categoría
+    function filtrarPorCategoria(categoria) {
+        const productCards = document.querySelectorAll('.product-card');
+        productCards.forEach(card => {
+            if (categoria === 'all' || card.getAttribute('data-category') === categoria) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    // 🎛️ Eventos de los botones de categoría
+    categoryButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            categoryButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            filtrarPorCategoria(btn.getAttribute('data-category'));
+        });
+    });
+
+    // 🚀 Iniciar
+    cargarProductos();
+</script>
+
+
+</body>
+</html>
