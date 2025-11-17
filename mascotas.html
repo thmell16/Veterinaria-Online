@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuidados de Mascotas - Veterinaria Moderna</title>
+    <style>
+        /* Estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header */
+        header {
+            background-color: #2e7d32;
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            margin-left: 10px;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(46, 125, 50, 0.8), rgba(46, 125, 50, 0.9)), url('https://source.unsplash.com/random/1200x600/?pets-care') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: white;
+            color: #2e7d32;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Secciones */
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: #2e7d32;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: #2e7d32;
+        }
+        
+        /* Animales */
+        .animals-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+        
+        .animal-tab {
+            background-color: white;
+            border: 2px solid #2e7d32;
+            color: #2e7d32;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .animal-tab.active, .animal-tab:hover {
+            background-color: #2e7d32;
+            color: white;
+        }
+        
+        .animal-content {
+            display: none;
+        }
+        
+        .animal-content.active {
+            display: block;
+        }
+        
+        .animal-info {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .animal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .animal-icon {
+            font-size: 3rem;
+            margin-right: 20px;
+        }
+        
+        .animal-header h3 {
+            font-size: 1.8rem;
+            color: #2e7d32;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .info-card {
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        .info-card h4 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .info-card ul {
+            list-style-type: none;
+        }
+        
+        .info-card ul li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .info-card ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #2e7d32;
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #e0e0e0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .animal-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .animal-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">🐾</span>
+                    <h1>Veterinaria Moderna</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="productos.html">Productos</a></li>
+                        <li><a href="consultas.html">Agendar Consulta</a></li>
+                        <li><a href="mascotas.html">Cuidados de Mascotas</a></li>
+                        <li><a href="nosotros.html">Nosotros</a></li>
+                        <li><a href="comentarios.html">Comentarios</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Cuidados Específicos para Cada Mascota</h2>
+            <p>Conoce las necesidades específicas de cada animal para brindarle la mejor calidad de vida.</p>
+        </div>
+    </section>
+
+    <!-- Cuidados de Mascotas -->
+    <section id="cuidados-mascotas">
+        <div class="container">
+            <div class="section-title">
+                <h2>Guía de Cuidados</h2>
+            </div>
+            
+            <div class="animals-tabs">
+                <button class="animal-tab active" data-animal="perro">
+                    <span>🐕</span> Perros
+                </button>
+                <button class="animal-tab" data-animal="gato">
+                    <span>🐈</span> Gatos
+                </button>
+                <button class="animal-tab" data-animal="huron">
+                    <span>🐭</span> Hurones
+                </button>
+                <button class="animal-tab" data-animal="hamster">
+                    <span>🐹</span> Hamsters
+                </button>
+                <button class="animal-tab" data-animal="perico">
+                    <span>🦜</span> Pericos
+                </button>
+            </div>
+            
+            <!-- Contenido para Perros -->
+            <div class="animal-content active" id="perro-content">
+                <div class="animal-info">
+                    <div class="animal-header">
+                        <div class="animal-icon">🐕</div>
+                        <h3>Cuidados para Perros</h3>
+                    </div>
+                    
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <h4>Alimentación</h4>
+                            <ul>
+                                <li>Proporciona alimento balanceado según su edad y tamaño</li>
+                                <li>Evita darle comida humana, especialmente chocolate, cebolla y uvas</li>
+                                <li>Mantén siempre agua fresca disponible</li>
+                                <li>Establece horarios regulares para las comidas</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h4>Ejercicio</h4>
+                            <ul>
+                                <li>Paseos diarios según su energía y raza</li>
+                                <li>Juegos interactivos para estimulación mental</li>
+                                <li>Socialización con otros perros de forma controlada</li>
+                                <li>Espacio adecuado para correr y jugar</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h4>Salud</h4>
+                            <ul>
+                                <li>Vacunación completa y desparasitación regular</li>
+                                <li>Revisiones veterinarias cada 6-12 meses</li>
+                                <li>Cepillado dental regular</li>
+                                <li>Control de peso para evitar obesidad</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h4>Cuidados Especiales</h4>
+                            <ul>
+                                <li>Cepillado regular del pelaje</li>
+                                <li>Baños cada 4-6 semanas o según necesidad</li>
+                                <li>Corte de uñas cuando sea necesario</li>
+                                <li>Protección contra pulgas y garrapatas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contenido para Gatos -->
+            <div class="animal-content" id="gato-content">
+                <div class="animal-info">
+                    <div class="animal-header">
+                        <div class="animal-icon">🐈</div>
+                        <h3>Cuidados para Gatos</h3>
+                    </div>
+                    
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <h4>Alimentación</h4>
+                            <ul>
+                                <li>Alimento específico para gatos, según edad</li>
+                                <li>Comida húmeda y seca para variedad</li>
+                                <li>Evita darle leche (puede causar problemas digestivos)</li>
+                                <li>Agua fresca siempre disponible</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h4>Entorno</h4>
+                            <ul>
+                                <li>Caja de arena limpia y en lugar tranquilo</li>
+                                <li>Rascador para cuidar sus uñas y mobiliario</li>
+                                <li>Espacios elevados para observar su territorio</li>
+                                <li>Juguetes para estimulación mental</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h4>Salud</h4>
+                            <ul>
+                                <li>Vacunación y desparasitación regular</li>
+                                <li>Esterilización recomendada para salud y comportamiento</li>
+                                <li>Control dental para prevenir enfermedades</li>
+                                <li>Revisiones veterinarias anuales</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h4>Cuidados Especiales</h4>
+                            <ul>
+                                <li>Cepillado regular para evitar bolas de pelo</li>
+                                <li>Baños solo cuando sea necesario</li>
+                                <li>Atención a cambios de comportamiento</li>
+                                <li>Entorno enriquecido para evitar estrés</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contenido para Hurones -->
+            <div class="animal-content" id="huron-content">
+                <div class="animal-info">
+                    <div class="animal-header">
+                        <div class="animal-icon">🐭</div>
+                        <h3>Cuidados para Hurones</h3>
+                    </div>
+                    
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <h4>Alimentación</h4>
+                            <ul>
+                                <li>Alimento específico para hurones, alto en proteínas</li>
+                                <li>Evita frutas, verduras y carbohidratos</li>
+                                <li>Agua fresca siempre disponible</li>
+                                <li>Comidas pequeñas y frecuentes</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h4>Hábitat</h4>
+                            <ul>
+                                <li>Jaula espaciosa con varios niveles</li>
+                                <li>Escondites y hamacas para descansar</li>
+                                <li>Temperatura ambiente controlada (15-24°C)</li>
+                                <li>Zona de juego segura fuera de la jaula</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h4>Salud</h4>
+                            <ul>
+                                <li>Vacunación contra el moquillo</li>
+                                <li>Desparasitación regular</li>
+                                <li>Esterilización para evitar problemas hormonales</li>
+                                <li>Revisiones veterinarias cada 6 meses</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h4>Cuidados Especiales</h4>
+                            <ul>
+                                <li>Supervisión constante cuando están fuera de la jaula</li>
+                                <li>Juguetes seguros que no puedan tragar</li>
+                                <li>Limpieza regular de la jaula</li>
+                                <li>Atención a cambios en el apetito o comportamiento</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contenido para Hamsters -->
+            <div class="animal-content" id="hamster-content">
+                <div class="animal-info">
+                    <div class="animal-header">
+                        <div class="animal-icon">🐹</div>
+                        <h3>Cuidados para Hamsters</h3>
+                    </div>
+                    
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <h4>Alimentación</h4>
+                            <ul>
+                                <li>Mezcla específica para hamsters</li>
+                                <li>Pequeñas cantidades de frutas y verduras frescas</li>
+                                <li>Fuente constante de agua limpia</li>
+                                <li>Alimentos proteicos ocasionales (huevo cocido, gusanos)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h4>Hábitat</h4>
+                            <ul>
+                                <li>Jaula espaciosa con ventilación adecuada</li>
+                                <li>Sustrato absorbente para excavar</li>
+                                <li>Rueda de ejercicio apropiada para su tamaño</li>
+                                <li>Escondites y material para nido</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h4>Salud</h4>
+                            <ul>
+                                <li>Observación diaria de su comportamiento</li>
+                                <li>Limpieza semanal de la jaula</li>
+                                <li>Revisión de dientes (crecen continuamente)</li>
+                                <li>Atención veterinaria si muestra signos de enfermedad</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h4>Cuidados Especiales</h4>
+                            <ul>
+                                <li>Son nocturnos, respeta su ciclo de sueño</li>
+                                <li>Manejo suave y con cuidado</li>
+                                <li>Evita cambios bruscos de temperatura</li>
+                                <li>Proporciona juguetes para roer</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contenido para Pericos -->
+            <div class="animal-content" id="perico-content">
+                <div class="animal-info">
+                    <div class="animal-header">
+                        <div class="animal-icon">🦜</div>
+                        <h3>Cuidados para Pericos</h3>
+                    </div>
+                    
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <h4>Alimentación</h4>
+                            <ul>
+                                <li>Mezcla de semillas específica para pericos</li>
+                                <li>Frutas y verduras frescas diariamente</li>
+                                <li>Hueso de jibia para calcio</li>
+                                <li>Agua fresca cambiada diariamente</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h4>Hábitat</h4>
+                            <ul>
+                                <li>Jaula espaciosa con barras horizontales</li>
+                                <li>Varios niveles con perchas de diferentes grosores</li>
+                                <li>Ubicación en área familiar pero sin corrientes de aire</li>
+                                <li>Juguetes seguros para entretenimiento</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h4>Salud</h4>
+                            <ul>
+                                <li>Observación diaria de su comportamiento y plumas</li>
+                                <li>Limpieza regular de la jaula y accesorios</li>
+                                <li>Corte de uñas cuando sea necesario</li>
+                                <li>Atención veterinaria especializada si muestra signos de enfermedad</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h4>Cuidados Especiales</h4>
+                            <ul>
+                                <li>Interacción social diaria</li>
+                                <li>Tiempo fuera de la jaula supervisado</li>
+                                <li>Estimulación mental con juguetes y entrenamiento</li>
+                                <li>Protección de depredadores domésticos (gatos)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Veterinaria Moderna</h3>
+                    <p>Cuidamos de tus mascotas con amor y profesionalidad.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="productos.html">Productos</a></li>
+                        <li><a href="consultas.html">Agendar Consulta</a></li>
+                        <li><a href="mascotas.html">Cuidados de Mascotas</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li>📍 Dirección: Av. Principal 123</li>
+                        <li>📞 Teléfono: (123) 456-7890</li>
+                        <li>✉️ Email: info@veterinariamoderna.com</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Horario</h3>
+                    <ul>
+                        <li>Lunes a Viernes: 9:00 - 18:00</li>
+                        <li>Sábados: 9:00 - 14:00</li>
+                        <li>Domingos: Cerrado</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Veterinaria Moderna. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Funcionalidad de pestañas
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.animal-tab');
+            const contents = document.querySelectorAll('.animal-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remover clase active de todas las pestañas y contenidos
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+                    
+                    // Agregar clase active a la pestaña clickeada
+                    this.classList.add('active');
+                    
+                    // Mostrar el contenido correspondiente
+                    const animal = this.getAttribute('data-animal');
+                    document.getElementById(`${animal}-content`).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
