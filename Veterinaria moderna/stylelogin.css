@@ -1,0 +1,147 @@
+/* Bloque principal que contiene toda la interacción */
+.login-container {
+  width: 100%;
+  max-width: 800px;
+  min-height: 390px;
+  margin: 60px auto;
+  padding: 50px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+/* Grupo de cada campo (Nombre y Contraseña) */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+/* Etiquetas */
+.form-group label {
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Inputs de texto y contraseña */
+.form-group input {
+  padding: 10px 12px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+/* Efecto al enfocar */
+.form-group input:focus {
+  border-color: #707b8d;
+}
+
+/* Opción "Olvidé mi contraseña" */
+.forgot-password {
+  margin: 10px 0 20px;
+  font-size: 13px;
+  color: #0ac345;
+  cursor: pointer;
+  text-align: left;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+/* Botón Iniciar con Google */
+.google-button {
+  width: 100%;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: bold;
+  background-color: #fefeff;
+  color: #000000;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  margin-top: 15px;
+}
+
+.button-inicio-seccion {
+  width: 100%;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: bold;
+  background-color: #0ac345;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  margin-top: 5px;
+}
+
+/* Hover del botón */
+.google-button:hover {
+  background-color: #646c79;
+}
+
+/* Efecto al presionar */
+.google-button:active {
+  transform: scale(0.98);
+}
+
+/* DIVISIÓN EN DOS COLUMNAS */
+.login-container {
+  display: flex;
+  gap: 30px;
+}
+
+/* FORMULARIO A LA IZQUIERDA */
+.login-form {
+  width: 55%;
+}
+
+/* IMAGEN A LA DERECHA */
+.login-image {
+  width: 45%;
+  min-height: 390px;   /* MÁS alta que el formulario */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .login-image {
+    display: none;
+  }
+
+  .login-form {
+    width: 100%;
+  }
+}
+
+.login-header {
+  margin-bottom: 30px;
+}
+
+.login-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #1f9d4a; /* verde bonito */
+  margin-bottom: 5px;
+}
+
+.login-subtitle {
+  font-size: 16px;
+  color: #555;
+}

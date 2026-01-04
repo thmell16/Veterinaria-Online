@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="stylelogin.css">
+</head>
+<body>
+
+<div class="login-container">
+
+  <!-- IZQUIERDA COMPLETA -->
+  <div class="login-form">
+
+    <!-- TITULO -->
+    <div class="login-header">
+      <h1 class="login-title">Carepat Animal</h1>
+      <p class="login-subtitle">Inicio de sesión</p>
+    </div>
+
+    <!-- FORMULARIO -->
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <input type="text" id="nombre" placeholder="Ingresa tu nombre">
+    </div>
+
+    <div class="form-group">
+      <label for="contrasena">Contraseña</label>
+      <input type="password" id="contrasena" placeholder="Ingresa tu contraseña">
+    </div>
+
+    <div class="forgot-password">Olvidé mi contraseña</div>
+
+    <button class="button-inicio-seccion" onclick="login()">Iniciar Sesión</button>
+    <button class="google-button">Iniciar con Google</button>
+
+  </div>
+
+  <!-- DERECHA -->
+  <div class="login-image">
+    <img src="Imegenes/imagen login.jpg" alt="Imagen de login">
+  </div>
+
+</div>
+
+<script>
+  function login() {
+    const nombre = document.getElementById("nombre").value;
+    const contrasena = document.getElementById("contrasena").value;
+
+    if (nombre === "Arielina" && contrasena === "1720") {
+      window.location.href = "index.html";
+    } else {
+      alert("Nombre o contraseña incorrectos");
+    }
+  }
+</script>
+
+</body>
+</html>
