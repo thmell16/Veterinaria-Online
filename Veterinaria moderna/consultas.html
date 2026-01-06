@@ -431,7 +431,11 @@ console.log("✅ Script cargado correctamente");
 /* Configuración de Supabase */
 const supabaseUrl = "https://diypegkoxhyfknlrvouc.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRpeXBlZ2tveGh5ZmtubHJ2b3VjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI3OTUzOTcsImV4cCI6MjA3ODM3MTM5N30.oC8kLJH2Q62mo9bZ9joHO5h35M1N9QAfIW6_EiUKxsA";
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+const supabaseClient = window.supabase.createClient(
+    supabaseUrl,
+    supabaseKey
+);
 
 console.log("✅ Supabase listo");
 
@@ -454,7 +458,9 @@ document.getElementById("consulta-form").addEventListener("submit", async functi
         servicio: document.getElementById("servicio").value,
         fecha: document.getElementById("fecha").value,
         raza: document.getElementById("raza").value || null,
-        edad: document.getElementById("edad").value ? parseInt(document.getElementById("edad").value) : null,
+        edad: document.getElementById("edad").value
+            ? parseInt(document.getElementById("edad").value)
+            : null,
         descripcion: document.getElementById("sintomas").value || null,
         horario: null
     };
@@ -467,7 +473,7 @@ document.getElementById("consulta-form").addEventListener("submit", async functi
 
     try {
         console.log("🔄 Insertando en citass...");
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from('citass')
             .insert([datos])
             .select();
@@ -490,6 +496,7 @@ document.getElementById("consulta-form").addEventListener("submit", async functi
 
 console.log("🎉 Listo");
 </script>
+
 
 </body>
 </html>
