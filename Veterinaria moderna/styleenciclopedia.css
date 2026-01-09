@@ -1,4 +1,5 @@
-   /* Estilos generales */
+
+        /* Estilos generales */
         * {
             margin: 0;
             padding: 0;
@@ -153,6 +154,14 @@
         /* Articles Container */
         .articles-container {
             flex: 1;
+            background-color: #2e7d32;
+        
+        }
+
+        .search-box-container{
+            flex: 1;
+    
+
         }
         
         .search-box {
@@ -288,3 +297,4 @@
                 grid-template-columns: 1fr;
             }
         }
+    
