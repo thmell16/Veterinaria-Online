@@ -5,26 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enciclopedia Animal - Veterinaria Moderna</title>
     <link rel="stylesheet" href="styleenciclopedia.css">
-<<<<<<< HEAD
-=======
-
-    
->>>>>>> cff440417b903f12f27f71dbf956b3f7dd6f9e0e
 </head>
 
 <body>
-
-    <script>
-  async function checkSession() {
-    const { data, error } = await window.supabaseClient.auth.getSession();
-
-    if (error || !data.session) {
-      window.location.href = "login.html";
-    }
-  }
-
-  checkSession();
-</script>
     <!-- Header -->
     <header>
         <div class="container">
@@ -40,7 +23,6 @@
                         <li><a href="consultas.html">Consultar</a></li>
                         <li><a href="enciclopediaAn.html">Enciclopedia animal</a></li>
                         <li><a href="cuenta.html">Cuenta</a></li>
-                        <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
                     </ul>
                 </nav>
             </div>
@@ -170,7 +152,6 @@
                         <li><a href="productos.html">Productos</a></li>
                         <li><a href="consultas.html">Agendar Consulta</a></li>
                         <li><a href="mascotas.html">Cuidados de Mascotas</a></li>
-                        <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -196,20 +177,10 @@
         </div>
     </footer>
 
-<<<<<<< HEAD
     <script>
         if (sessionStorage.getItem("logueado") !== "true") {
             window.location.href = "login.html";
         }
     </script>
-=======
-  <script>
-  async function logout() {
-    await window.supabaseClient.auth.signOut();
-    window.location.href = "login.html";
-  }
-</script>
-
->>>>>>> cff440417b903f12f27f71dbf956b3f7dd6f9e0e
 </body>
 </html>
