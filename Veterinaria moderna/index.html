@@ -7,6 +7,24 @@
    <link rel="stylesheet" href="styleindex.css">
 </head>
 <body>
+ <!-- ================= SUPABASE ================= -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+
+<script>
+  async function checkSession() {
+    const { data, error } = await window.supabaseClient.auth.getSession();
+
+    if (error || !data.session) {
+      window.location.href = "login.html";
+    }
+  }
+
+  checkSession();
+</script>
+
+
+
     <!-- Header -->
     <header>
         <div class="container">
@@ -22,7 +40,7 @@
                         <li><a href="consultas.html">Consultar</a></li>
                         <li><a href="enciclopediaAn.html">Enciclopedia animal</a></li>
                         <li><a href="cuenta.html">Cuenta</a></li>
-                        
+                        <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
                     </ul>
                 </nav>
             </div>
@@ -123,185 +141,56 @@
         </div>
     </section>
 
-    <!-- Hero Section -->
-    <section class="hero">
+ <!-- Footer -->
+    <footer>
         <div class="container">
-            <h2>Tu opinión nos importa</h2>
-            <p>Comparte tu experiencia y ayúdanos a mejorar nuestros servicios.</p>
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Veterinaria Moderna</h3>
+                    <p>Cuidamos de tus mascotas con amor y profesionalidad.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="productos.html">Productos</a></li>
+                        <li><a href="consultas.html">Agendar Consulta</a></li>
+                        <li><a href="mascotas.html">Cuidados de Mascotas</a></li>
+                        <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li>📍 Dirección: Av. Principal 123</li>
+                        <li>📞 Teléfono: (123) 456-7890</li>
+                        <li>✉️ Email: info@veterinariamoderna.com</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Horario</h3>
+                    <ul>
+                        <li>Lunes a Viernes: 9:00 - 18:00</li>
+                        <li>Sábados: 9:00 - 14:00</li>
+                        <li>Domingos: Cerrado</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Veterinaria Moderna. Todos los derechos reservados.</p>
+            </div>
         </div>
-    </section>
-
-    <!-- Formulario de Comentarios -->
-    <section id="formulario-comentarios">
-        <div class="container">
-            <div class="section-title">
-                <h2>Deja tu comentario</h2>
-            </div>
-            
-            <div class="form-container">
-                <form id="comentario-form">
-                    <div class="form-group">
-                        <label for="nombre">Nombre </label>
-                        <input type="text" id="nombre" name="nombre" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Correo electrónico </label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="servicio">Servicio utilizado</label>
-                        <select id="servicio" name="servicio">
-                            <option value="">Selecciona un servicio</option>
-                            <option value="consulta-general">Consulta General</option>
-                            <option value="vacunacion">Vacunación</option>
-                            <option value="analisis-clinicos">Análisis Clínicos</option>
-                            <option value="odontologia">Odontología</option>
-                            <option value="cirugia">Cirugía</option>
-                            <option value="emergencia">Emergencia</option>
-                            <option value="productos">Compra de Productos</option>
-                            <option value="otro">Otro</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Calificación</label>
-                     <div class="rating">
-                        <input type="radio" id="star5" name="rating" value="5">
-                        <label for="star5">★</label>
-
-                        <input type="radio" id="star4" name="rating" value="4">
-                        <label for="star4">★</label>
-
-                        <input type="radio" id="star3" name="rating" value="3">
-                        <label for="star3">★</label>
-
-                        <input type="radio" id="star2" name="rating" value="2">
-                        <label for="star2">★</label>
-
-                        <input type="radio" id="star1" name="rating" value="1">
-                        <label for="star1">★</label>
-                     </div>
-                    </div>
-
-                    
-                    <div class="form-group">
-                        <label for="comentario">Tu comentario </label>
-                        <textarea id="comentario" name="comentario" placeholder="Comparte tu experiencia con nosotros..." required></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="sugerencias">Sugerencias de mejora</label>
-                        <textarea id="sugerencias" name="sugerencias" placeholder="¿Qué podemos hacer para mejorar?"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <button type="submit" class="btn" style="width: 100%;">Enviar comentario</button>
-                    </div>
-                </form>
-            </div>
-            
-           
-
     </footer>
-
- 
-
-<!-- 1️⃣ Supabase CDN -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<!-- 2️⃣ Crear cliente Supabase (UNA SOLA VEZ) -->
+    
 <script>
-  const supabaseUrl = "https://diypegkoxhyfknlrvouc.supabase.co";
-  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRpeXBlZ2tveGh5ZmtubHJ2b3VjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI3OTUzOTcsImV4cCI6MjA3ODM3MTM5N30.oC8kLJH2Q62mo9bZ9joHO5h35M1N9QAfIW6_EiUKxsA"; // luego hablamos de seguridad
-  const supabaseClient = window.supabase.createClient(
-  supabaseUrl,
-  supabaseKey
-);
-
-</script>
-
-<!-- 3️⃣ Formulario -->
-<script>
-document.getElementById('comentario-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-
-  const nombre = document.getElementById('nombre').value;
-  const email = document.getElementById('email').value;
-  const servicio = document.getElementById('servicio').value;
-  const comentario = document.getElementById('comentario').value;
-  const sugerencias = document.getElementById('sugerencias').value;
-  const rating = document.querySelector('input[name="rating"]:checked');
-
-  if (!nombre || !email || !comentario || !rating) {
-    alert("Completa todos los campos obligatorios");
-    return;
-  }
-
-  const { error } = await supabaseClient.from('comentarios').insert([{
-    nombre,
-    email,
-    servicio,
-    rating: rating.value,
-    comentario,
-    sugerencias
-  }]);
-
-  if (error) {
-    alert("Error al enviar comentario");
-    console.error(error);
-  } else {
-    alert("¡Comentario enviado correctamente!");
-    this.reset();
-    cargarComentarios();
-  }
-});
-</script>
-
-<!-- 4️⃣ Cargar comentarios -->
-<script>
-async function cargarComentarios() {
-  const { data, error } = await supabaseClient
-    .from('comentarios')
-    .select('*')
-    .order('created_at', { ascending: false });
-
-  if (error) {
-    console.error(error);
-    return;
-  }
-
-  const contenedor = document.getElementById('lista-comentarios');
-  contenedor.innerHTML = "";
-
-  data.forEach(c => {
-    const estrellas = "★".repeat(c.rating) + "☆".repeat(5 - c.rating);
-
-    contenedor.innerHTML += `
-      <div class="comment-card">
-        <div class="comment-header">
-          <div class="comment-author">${c.nombre}</div>
-          <div class="comment-date">
-            ${new Date(c.created_at).toLocaleDateString()}
-          </div>
-        </div>
-        <div class="comment-rating">${estrellas}</div>
-        <p>${c.comentario}</p>
-      </div>
-    `;
-  });
-}
-
-cargarComentarios();
-</script>
-
-<!-- 5️⃣ Protección de login -->
-<script>
-  if (sessionStorage.getItem("logueado") !== "true") {
+  async function logout() {
+    await window.supabaseClient.auth.signOut();
     window.location.href = "login.html";
   }
 </script>
+ 
+
+
 
 
 

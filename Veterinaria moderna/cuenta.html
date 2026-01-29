@@ -7,6 +7,19 @@
     <link rel="stylesheet" href="stylecuenta.css">
 </head>
 <body>
+
+    <script>
+  async function checkSession() {
+    const { data, error } = await window.supabaseClient.auth.getSession();
+
+    if (error || !data.session) {
+      window.location.href = "login.html";
+    }
+  }
+
+  checkSession();
+</script>
+
     <!-- Header -->
     <header>
         <div class="container">
@@ -158,6 +171,7 @@
                         <li><a href="productos.html">Productos</a></li>
                         <li><a href="consultas.html">Agendar Consulta</a></li>
                         <li><a href="mascotas.html">Cuidados de Mascotas</a></li>
+                        <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -183,10 +197,13 @@
         </div>
     </footer>
 
-    <script>
-  if (sessionStorage.getItem("logueado") !== "true") {
+
+     <script>
+  async function logout() {
+    await window.supabaseClient.auth.signOut();
     window.location.href = "login.html";
   }
 </script>
+
 </body>
 </html>

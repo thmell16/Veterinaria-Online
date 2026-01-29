@@ -9,6 +9,119 @@
 </head>
 <body>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+/* ===============================
+   CONFIGURACIÓN SUPABASE
+================================ */
+const supabaseUrl = "https://yfvomuqdvaiefctmrjut.supabase.co";
+const supabaseKey = "sb_publishable_9XjfzC3Vv2cW-QZyqXDgZA_HQNTR4Nm";
+
+window.supabaseClient = supabase.createClient(
+    supabaseUrl,
+    supabaseKey
+);
+
+console.log("✅ Supabase conectado");
+
+/* ===============================
+   VERIFICAR SESIÓN (PROTECCIÓN)
+================================ */
+async function checkSession() {
+    const { data, error } = await window.supabaseClient.auth.getSession();
+
+    if (error || !data.session) {
+        console.warn("⛔ No hay sesión activa");
+        window.location.href = "login.html";
+    } else {
+        console.log("🔓 Sesión activa:", data.session.user.email);
+    }
+}
+
+checkSession();
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    /* ===============================
+       FECHA MÍNIMA
+    ================================ */
+    const today = new Date().toISOString().split("T")[0];
+    const fechaInput = document.getElementById("fecha");
+
+    if (fechaInput) {
+        fechaInput.min = today;
+        console.log("📅 Fecha mínima aplicada:", today);
+    }
+
+    /* ===============================
+       FORMULARIO
+    ================================ */
+    const form = document.getElementById("consulta-form");
+
+    if (!form) {
+        console.error("❌ No se encontró el formulario");
+        return;
+    }
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const datos = {
+            nombre_dueno: nombre.value,
+            telefono_dueno: telefono.value,
+            correo_dueno: email.value,
+            nombre_mascota: mascota.value,
+            tipo_animal: document.getElementById("tipo-mascota").value,
+            servicio: servicio.value,
+            fecha: fecha.value,
+            raza: raza.value || null,
+            edad: edad.value ? parseInt(edad.value) : null,
+            descripcion: sintomas.value || null,
+            horario: null
+        };
+
+        if (!datos.nombre_dueno || !datos.telefono_dueno || !datos.correo_dueno ||
+            !datos.nombre_mascota || !datos.tipo_animal ||
+            !datos.servicio || !datos.fecha) {
+            alert("❌ Completa los campos obligatorios");
+            return;
+        }
+
+        const { error } = await window.supabaseClient
+            .from("citass")
+            .insert([datos]);
+
+        if (error) {
+            console.error(error);
+            alert("❌ Error al guardar la cita");
+            return;
+        }
+
+        alert("✅ Cita agendada correctamente");
+        form.reset();
+    });
+
+});
+
+
+
+
+
+
+/* ===============================
+   LOGOUT
+================================ */
+async function logout() {
+    await window.supabaseClient.auth.signOut();
+    window.location.href = "login.html";
+}
+</script>
+
+
+
 <header>
     <div class="container">
         <div class="header-content">
@@ -23,6 +136,7 @@
                         <li><a href="consultas.html">Consultar</a></li>
                         <li><a href="enciclopediaAn.html">Enciclopedia animal</a></li>
                         <li><a href="cuenta.html">Cuenta</a></li>
+                        <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
                 </ul>
             </nav>
         </div>
@@ -130,6 +244,7 @@
                     <li><a href="productos.html">Productos</a></li>
                     <li><a href="consultas.html">Agendar Consulta</a></li>
                     <li><a href="mascotas.html">Cuidados de Mascotas</a></li>
+                    <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
                 </ul>
             </div>
             <div class="footer-column">
@@ -155,84 +270,5 @@
     </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-console.log("🚀 Iniciando...");
-console.log("✅ Script cargado correctamente");
-
-/* Configuración de Supabase */
-const supabaseUrl = "https://diypegkoxhyfknlrvouc.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRpeXBlZ2tveGh5ZmtubHJ2b3VjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI3OTUzOTcsImV4cCI6MjA3ODM3MTM5N30.oC8kLJH2Q62mo9bZ9joHO5h35M1N9QAfIW6_EiUKxsA";
-
-const supabaseClient = window.supabase.createClient(
-    supabaseUrl,
-    supabaseKey
-);
-
-console.log("✅ Supabase listo");
-
-// Fecha mínima
-const today = new Date().toISOString().split("T")[0];
-document.getElementById("fecha").min = today;
-console.log("📅 Fecha mínima configurada:", today);
-
-// Formulario
-document.getElementById("consulta-form").addEventListener("submit", async function(e) {
-    e.preventDefault();
-    console.log("📝 Enviando...");
-
-    const datos = {
-        nombre_dueno: document.getElementById("nombre").value,
-        telefono_dueno: document.getElementById("telefono").value,
-        correo_dueno: document.getElementById("email").value,
-        nombre_mascota: document.getElementById("mascota").value,
-        tipo_animal: document.getElementById("tipo-mascota").value,
-        servicio: document.getElementById("servicio").value,
-        fecha: document.getElementById("fecha").value,
-        raza: document.getElementById("raza").value || null,
-        edad: document.getElementById("edad").value
-            ? parseInt(document.getElementById("edad").value)
-            : null,
-        descripcion: document.getElementById("sintomas").value || null,
-        horario: null
-    };
-
-    // Validar
-    if (Object.values(datos).some(v => !v && v !== null)) {
-        alert("❌ Completa los campos obligatorios");
-        return;
-    }
-
-    try {
-        console.log("🔄 Insertando en citass...");
-        const { data, error } = await supabaseClient
-            .from('citass')
-            .insert([datos])
-            .select();
-
-        if (error) {
-            console.error("❌ Error Supabase:", error);
-            alert("Error: " + error.message);
-            return;
-        }
-
-        console.log("✅ Éxito:", data);
-        alert("✅ Cita agendada para " + datos.nombre_mascota);
-        this.reset();
-
-    } catch (err) {
-        console.error("💥 Error:", err);
-        alert("Error: " + err.message);
-    }
-});
-
-console.log("🎉 Listo");
-</script>
-
-<script>
-  if (sessionStorage.getItem("logueado") !== "true") {
-    window.location.href = "login.html";
-  }
-</script>
 </body>
 </html>
