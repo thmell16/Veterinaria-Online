@@ -9,6 +9,119 @@
 </head>
 <body>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+/* ===============================
+   CONFIGURACIÓN SUPABASE
+================================ */
+const supabaseUrl = "https://yfvomuqdvaiefctmrjut.supabase.co";
+const supabaseKey = "sb_publishable_9XjfzC3Vv2cW-QZyqXDgZA_HQNTR4Nm";
+
+window.supabaseClient = supabase.createClient(
+    supabaseUrl,
+    supabaseKey
+);
+
+console.log("✅ Supabase conectado");
+
+/* ===============================
+   VERIFICAR SESIÓN (PROTECCIÓN)
+================================ */
+async function checkSession() {
+    const { data, error } = await window.supabaseClient.auth.getSession();
+
+    if (error || !data.session) {
+        console.warn("⛔ No hay sesión activa");
+        window.location.href = "login.html";
+    } else {
+        console.log("🔓 Sesión activa:", data.session.user.email);
+    }
+}
+
+checkSession();
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    /* ===============================
+       FECHA MÍNIMA
+    ================================ */
+    const today = new Date().toISOString().split("T")[0];
+    const fechaInput = document.getElementById("fecha");
+
+    if (fechaInput) {
+        fechaInput.min = today;
+        console.log("📅 Fecha mínima aplicada:", today);
+    }
+
+    /* ===============================
+       FORMULARIO
+    ================================ */
+    const form = document.getElementById("consulta-form");
+
+    if (!form) {
+        console.error("❌ No se encontró el formulario");
+        return;
+    }
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const datos = {
+            nombre_dueno: nombre.value,
+            telefono_dueno: telefono.value,
+            correo_dueno: email.value,
+            nombre_mascota: mascota.value,
+            tipo_animal: document.getElementById("tipo-mascota").value,
+            servicio: servicio.value,
+            fecha: fecha.value,
+            raza: raza.value || null,
+            edad: edad.value ? parseInt(edad.value) : null,
+            descripcion: sintomas.value || null,
+            horario: null
+        };
+
+        if (!datos.nombre_dueno || !datos.telefono_dueno || !datos.correo_dueno ||
+            !datos.nombre_mascota || !datos.tipo_animal ||
+            !datos.servicio || !datos.fecha) {
+            alert("❌ Completa los campos obligatorios");
+            return;
+        }
+
+        const { error } = await window.supabaseClient
+            .from("citass")
+            .insert([datos]);
+
+        if (error) {
+            console.error(error);
+            alert("❌ Error al guardar la cita");
+            return;
+        }
+
+        alert("✅ Cita agendada correctamente");
+        form.reset();
+    });
+
+});
+
+
+
+
+
+
+/* ===============================
+   LOGOUT
+================================ */
+async function logout() {
+    await window.supabaseClient.auth.signOut();
+    window.location.href = "login.html";
+}
+</script>
+
+
+
 <header>
     <div class="container">
         <div class="header-content">
@@ -23,6 +136,7 @@
                         <li><a href="consultas.html">Consultar</a></li>
                         <li><a href="enciclopediaAn.html">Enciclopedia animal</a></li>
                         <li><a href="cuenta.html">Cuenta</a></li>
+                        <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
                 </ul>
             </nav>
         </div>
@@ -32,35 +146,35 @@
 <section id="formulario-consulta">
     <div class="container">
         <div class="section-title">
-            <h2>Agendar Cita</h2>
+            <h2>Agendar cita</h2>
         </div>
         <div class="form-container">
             <form id="consulta-form">
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="nombre">Nombre Completo *</label>
+                        <label for="nombre">Nombre completo </label>
                         <input type="text" id="nombre" name="nombre" required>
                         <div class="error" id="error-nombre">Por favor, ingresa tu nombre completo</div>
                     </div>
                     <div class="form-group">
-                        <label for="telefono">Teléfono *</label>
+                        <label for="telefono">Teléfono </label>
                         <input type="tel" id="telefono" name="telefono" required>
                         <div class="error" id="error-telefono">Por favor, ingresa tu teléfono</div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="email">Correo Electrónico *</label>
+                    <label for="email">Correo electrónico </label>
                     <input type="email" id="email" name="email" required>
                     <div class="error" id="error-email">Por favor, ingresa un correo válido</div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="mascota">Nombre de la Mascota *</label>
+                        <label for="mascota">Nombre de la mascota </label>
                         <input type="text" id="mascota" name="mascota" required>
                         <div class="error" id="error-mascota">Por favor, ingresa el nombre de tu mascota</div>
                     </div>
                     <div class="form-group">
-                        <label for="tipo-mascota">Tipo de Mascota *</label>
+                        <label for="tipo-mascota">Tipo de mascota </label>
                         <select id="tipo-mascota" name="tipo-mascota" required>
                             <option value="">Selecciona una opción</option>
                             <option value="perro">Perro</option>
@@ -85,7 +199,7 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="servicio">Servicio Solicitado *</label>
+                        <label for="servicio">Servicio solicitado </label>
                         <select id="servicio" name="servicio" required>
                             <option value="">Selecciona un servicio</option>
                             <option value="consulta-general">Consulta General</option>
@@ -99,17 +213,17 @@
                         <div class="error" id="error-servicio">Por favor, selecciona un servicio</div>
                     </div>
                     <div class="form-group">
-                        <label for="fecha">Fecha Preferida *</label>
+                        <label for="fecha">Fecha preferida </label>
                         <input type="date" id="fecha" name="fecha" required>
                         <div class="error" id="error-fecha">Por favor, selecciona una fecha</div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="sintomas">Síntomas o Motivo de la Consulta</label>
+                    <label for="sintomas">Síntomas o motivo de la consulta</label>
                     <textarea id="sintomas" name="sintomas" placeholder="Describe los síntomas o el motivo de la consulta..."></textarea>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn" style="width:100%;">Agendar Cita</button>
+                    <button type="submit" class="btn" style="width:100%;">Agendar cita</button>
                 </div>
             </form>
         </div>
@@ -120,16 +234,17 @@
     <div class="container">
         <div class="footer-content">
             <div class="footer-column">
-                <h3>Veterinaria Moderna</h3>
+                <h3>Veterinaria moderna</h3>
                 <p>Cuidamos de tus mascotas con amor y profesionalidad.</p>
             </div>
             <div class="footer-column">
-                <h3>Enlaces Rápidos</h3>
+                <h3>Enlaces rápidos</h3>
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="productos.html">Productos</a></li>
                     <li><a href="consultas.html">Agendar Consulta</a></li>
                     <li><a href="mascotas.html">Cuidados de Mascotas</a></li>
+                    <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
                 </ul>
             </div>
             <div class="footer-column">
@@ -155,84 +270,5 @@
     </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-console.log("🚀 Iniciando...");
-console.log("✅ Script cargado correctamente");
-
-/* Configuración de Supabase */
-const supabaseUrl = "https://diypegkoxhyfknlrvouc.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRpeXBlZ2tveGh5ZmtubHJ2b3VjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI3OTUzOTcsImV4cCI6MjA3ODM3MTM5N30.oC8kLJH2Q62mo9bZ9joHO5h35M1N9QAfIW6_EiUKxsA";
-
-const supabaseClient = window.supabase.createClient(
-    supabaseUrl,
-    supabaseKey
-);
-
-console.log("✅ Supabase listo");
-
-// Fecha mínima
-const today = new Date().toISOString().split("T")[0];
-document.getElementById("fecha").min = today;
-console.log("📅 Fecha mínima configurada:", today);
-
-// Formulario
-document.getElementById("consulta-form").addEventListener("submit", async function(e) {
-    e.preventDefault();
-    console.log("📝 Enviando...");
-
-    const datos = {
-        nombre_dueno: document.getElementById("nombre").value,
-        telefono_dueno: document.getElementById("telefono").value,
-        correo_dueno: document.getElementById("email").value,
-        nombre_mascota: document.getElementById("mascota").value,
-        tipo_animal: document.getElementById("tipo-mascota").value,
-        servicio: document.getElementById("servicio").value,
-        fecha: document.getElementById("fecha").value,
-        raza: document.getElementById("raza").value || null,
-        edad: document.getElementById("edad").value
-            ? parseInt(document.getElementById("edad").value)
-            : null,
-        descripcion: document.getElementById("sintomas").value || null,
-        horario: null
-    };
-
-    // Validar
-    if (Object.values(datos).some(v => !v && v !== null)) {
-        alert("❌ Completa los campos obligatorios");
-        return;
-    }
-
-    try {
-        console.log("🔄 Insertando en citass...");
-        const { data, error } = await supabaseClient
-            .from('citass')
-            .insert([datos])
-            .select();
-
-        if (error) {
-            console.error("❌ Error Supabase:", error);
-            alert("Error: " + error.message);
-            return;
-        }
-
-        console.log("✅ Éxito:", data);
-        alert("✅ Cita agendada para " + datos.nombre_mascota);
-        this.reset();
-
-    } catch (err) {
-        console.error("💥 Error:", err);
-        alert("Error: " + err.message);
-    }
-});
-
-console.log("🎉 Listo");
-</script>
-
-<script>
-  if (sessionStorage.getItem("logueado") !== "true") {
-    window.location.href = "login.html";
-  }
-</script>
 </body>
 </html>

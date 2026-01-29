@@ -7,6 +7,19 @@
     <link rel="stylesheet" href="styletienda.css">
 </head>
 <body>
+
+    <script>
+  async function checkSession() {
+    const { data, error } = await window.supabaseClient.auth.getSession();
+
+    if (error || !data.session) {
+      window.location.href = "login.html";
+    }
+  }
+
+  checkSession();
+</script>
+
     <!-- Header -->
     <header>
         <div class="container">
@@ -22,6 +35,7 @@
                         <li><a href="consultas.html">Consultar</a></li>
                         <li><a href="enciclopediaAn.html">Enciclopedia animal</a></li>
                         <li><a href="cuenta.html">Cuenta</a></li>
+                        <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
                     </ul>
                 </nav>
             </div>
@@ -145,6 +159,7 @@
                         <li><a href="productos.html">Productos</a></li>
                         <li><a href="consultas.html">Agendar Consulta</a></li>
                         <li><a href="mascotas.html">Cuidados de Mascotas</a></li>
+                        <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -176,8 +191,8 @@
     import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
     // 🔑 Reemplaza con tus credenciales reales de Supabase
-    const SUPABASE_URL = 'https://diypegkoxhyfknlrvouc.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRpeXBlZ2tveGh5ZmtubHJ2b3VjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI3OTUzOTcsImV4cCI6MjA3ODM3MTM5N30.oC8kLJH2Q62mo9bZ9joHO5h35M1N9QAfIW6_EiUKxsA';
+    const SUPABASE_URL = 'https://yfvomuqdvaiefctmrjut.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_9XjfzC3Vv2cW-QZyqXDgZA_HQNTR4Nm';
     const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
     // 🧩 Elementos del DOM
@@ -245,8 +260,11 @@
     cargarProductos();
 </script>
 
+
+
 <script>
-  if (sessionStorage.getItem("logueado") !== "true") {
+  async function logout() {
+    await window.supabaseClient.auth.signOut();
     window.location.href = "login.html";
   }
 </script>

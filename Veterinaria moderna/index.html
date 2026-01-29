@@ -7,6 +7,24 @@
    <link rel="stylesheet" href="styleindex.css">
 </head>
 <body>
+ <!-- ================= SUPABASE ================= -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+
+<script>
+  async function checkSession() {
+    const { data, error } = await window.supabaseClient.auth.getSession();
+
+    if (error || !data.session) {
+      window.location.href = "login.html";
+    }
+  }
+
+  checkSession();
+</script>
+
+
+
     <!-- Header -->
     <header>
         <div class="container">
@@ -22,7 +40,7 @@
                         <li><a href="consultas.html">Consultar</a></li>
                         <li><a href="enciclopediaAn.html">Enciclopedia animal</a></li>
                         <li><a href="cuenta.html">Cuenta</a></li>
-                        
+                        <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
                     </ul>
                 </nav>
             </div>
@@ -42,7 +60,7 @@
     <section id="sobre-nosotros">
         <div class="container">
             <div class="section-title">
-                <h2>Sobre Nosotros</h2>
+                <h2>Sobre nosotros</h2>
             </div>
             
             <div class="about-content">
@@ -50,7 +68,7 @@
                     <h3>¿Que hacemos?</h3>
                     <p>Texto aqui...</p>
                     
-                    <h3>Nuestra Misión</h3>
+                    <h3>Nuestra misión</h3>
                     <p>Nuestra misión es mejorar la calidad de vida de las mascotas a través de medicina preventiva, diagnóstico preciso y tratamientos efectivos. Creemos que cada animal merece atención compasiva y de calidad, y nos esforzamos por ser el referente en cuidado veterinario en nuestra comunidad.</p>
                 </div>
                 
@@ -65,7 +83,7 @@
     <section id="servicios">
         <div class="container">
             <div class="section-title">
-                <h2>Nuestros Servicios</h2>
+                <h2>Nuestros servicios</h2>
             </div>
             <div class="services-grid">
                 <div class="service-card">
@@ -96,7 +114,7 @@
     <section id="animales">
         <div class="container">
             <div class="section-title">
-                <h2>Animales que Atendemos</h2>
+                <h2>Animales que atendemos</h2>
             </div>
             <div class="animals-grid">
                 <div class="animal-card">
@@ -123,6 +141,7 @@
         </div>
     </section>
 
+<<<<<<< HEAD
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
@@ -248,6 +267,9 @@
 
 
     <!-- Footer -->
+=======
+ <!-- Footer -->
+>>>>>>> cff440417b903f12f27f71dbf956b3f7dd6f9e0e
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -262,6 +284,7 @@
                         <li><a href="productos.html">Productos</a></li>
                         <li><a href="consultas.html">Agendar Consulta</a></li>
                         <li><a href="mascotas.html">Cuidados de Mascotas</a></li>
+                        <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -286,42 +309,17 @@
             </div>
         </div>
     </footer>
-
-    <script>
-        // Manejo del formulario de comentarios
-        document.getElementById('comentario-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Validación básica
-            const nombre = document.getElementById('nombre').value;
-            const email = document.getElementById('email').value;
-            const comentario = document.getElementById('comentario').value;
-            const rating = document.querySelector('input[name="rating"]:checked');
-            
-            if (!nombre || !email || !comentario) {
-                alert('Por favor, completa todos los campos obligatorios (*)');
-                return;
-            }
-            
-            if (!rating) {
-                alert('Por favor, selecciona una calificación');
-                return;
-            }
-            
-            // Si todo está bien, mostrar mensaje de éxito
-            alert('¡Gracias por tu comentario! Tu feedback nos ayuda a mejorar.');
-            this.reset();
-            
-            // En una implementación real, aquí enviarías los datos al servidor
-            // y posiblemente actualizarías la sección de comentarios
-        });
-    </script>
-
+    
 <script>
-  if (sessionStorage.getItem("logueado") !== "true") {
+  async function logout() {
+    await window.supabaseClient.auth.signOut();
     window.location.href = "login.html";
   }
 </script>
+ 
+
+
+
 
 
 </body>
