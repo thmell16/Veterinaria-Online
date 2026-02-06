@@ -8,6 +8,8 @@
 </head>
 <body>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
     <script>
   async function checkSession() {
     const { data, error } = await window.supabaseClient.auth.getSession();
@@ -183,80 +185,7 @@
         </div>
     </footer>
 
-   <!-- Supabase dinámico -->
-<script type="module">
-    // ✅ Importamos el cliente de Supabase (CDN)
-    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
-    // 🔑 Reemplaza con tus credenciales reales de Supabase
-    const SUPABASE_URL = 'https://yfvomuqdvaiefctmrjut.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_9XjfzC3Vv2cW-QZyqXDgZA_HQNTR4Nm';
-    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
-
-    // 🧩 Elementos del DOM
-    const productsGrid = document.querySelector('.products-grid');
-    const categoryButtons = document.querySelectorAll('.category-btn');
-
-    // 🚀 Función para cargar productos desde Supabase
-    async function cargarProductos() {
-        const { data, error } = await supabase
-            .from('productoss')
-            .select('*')
-            .order('id', { ascending: true });
-
-        if (error) {
-            console.error('Error al cargar productos:', error);
-            productsGrid.innerHTML = '<p style="color:red;">Error al cargar productos.</p>';
-            return;
-        }
-
-        mostrarProductos(data);
-    }
-
-    // 🧱 Mostrar los productos en pantalla
-    function mostrarProductos(productos) {
-        productsGrid.innerHTML = ''; // Limpiar
-        productos.forEach(prod => {
-            const card = document.createElement('div');
-            card.classList.add('product-card');
-            card.setAttribute('data-category', prod.categoria);
-            card.innerHTML = `
-                <div class="product-image">${prod.emoji || '🐾'}</div>
-                <div class="product-info">
-                    <h3>${prod.nombre}</h3>
-                    <p>${prod.descripcion || ''}</p>
-                    <div class="product-price">$${prod.precio.toFixed(2)}</div>
-                    <button class="btn">Agregar al Carrito</button>
-                </div>
-            `;
-            productsGrid.appendChild(card);
-        });
-    }
-
-    // 🧭 Filtrado por categoría
-    function filtrarPorCategoria(categoria) {
-        const productCards = document.querySelectorAll('.product-card');
-        productCards.forEach(card => {
-            if (categoria === 'all' || card.getAttribute('data-category') === categoria) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    }
-
-    // 🎛️ Eventos de los botones de categoría
-    categoryButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            categoryButtons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            filtrarPorCategoria(btn.getAttribute('data-category'));
-        });
-    });
-
-    // 🚀 Iniciar
-    cargarProductos();
-</script>
 
 
 
@@ -266,6 +195,8 @@
     window.location.href = "login.html";
   }
 </script>
+
+<script src="tienda.js"></script>
 
 </body>
 </html>
