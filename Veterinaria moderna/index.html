@@ -40,7 +40,7 @@
                         <li><a href="consultas.html">Consultar</a></li>
                         <li><a href="enciclopediaAn.html">Enciclopedia animal</a></li>
                         <li><a href="cuenta.html">Cuenta</a></li>
-                        <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
+                        <li><a href="#" onclick="cerrarSesion()">Cerrar sesión</a></li>
                     </ul>
                 </nav>
             </div>
@@ -142,18 +142,46 @@
     </section>
 
  <!-- Footer -->
-    <footer>
+ <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Veterinaria Moderna</h3>
+                    <p>Cuidamos de tus mascotas con amor y profesionalidad.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="productos.html">Productos</a></li>
+                        <li><a href="consultas.html">Agendar Consulta</a></li>
+                        <li><a href="mascotas.html">Cuidados de Mascotas</a></li>
+                        <li><a href="#" onclick="cerrarSesion()">Cerrar sesión</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li>📍 Dirección: Av. Principal 123</li>
+                        <li>📞 Teléfono: (123) 456-7890</li>
+                        <li>✉️ Email: info@veterinariamoderna.com</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Horario</h3>
+                    <ul>
+                        <li>Lunes a Viernes: 9:00 - 18:00</li>
+                        <li>Sábados: 9:00 - 14:00</li>
+                        <li>Domingos: Cerrado</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Veterinaria Moderna. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
   
-<script>
-  async function logout() {
-    await window.supabaseClient.auth.signOut();
-    window.location.href = "login.html";
-  }
-</script>
- 
-
-
-
 
 </body>
 </html>

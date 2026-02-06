@@ -8,8 +8,8 @@
 
 </head>
 <body>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
 
 <script>
 /* ===============================
@@ -136,7 +136,7 @@ async function logout() {
                         <li><a href="consultas.html">Consultar</a></li>
                         <li><a href="enciclopediaAn.html">Enciclopedia animal</a></li>
                         <li><a href="cuenta.html">Cuenta</a></li>
-                        <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
+                        <li><a href="#" onclick="cerrarSesion()">Cerrar sesión</a></li>
                 </ul>
             </nav>
         </div>
@@ -244,7 +244,7 @@ async function logout() {
                     <li><a href="productos.html">Productos</a></li>
                     <li><a href="consultas.html">Agendar Consulta</a></li>
                     <li><a href="mascotas.html">Cuidados de Mascotas</a></li>
-                    <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
+                    <li><a href="#" onclick="cerrarSesion()">Cerrar sesión</a></li>
                 </ul>
             </div>
             <div class="footer-column">
@@ -269,6 +269,8 @@ async function logout() {
         </div>
     </div>
 </footer>
+
+
 
 </body>
 </html>
